@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "wix.vscode-import-cost",
+    "usernamehw.errorlens",
+    "ms-vscode.vscode-typescript-next",
+    "streetsidesoftware.code-spell-checker",
+    "styled-components.vscode-styled-components",
+    "formulahendry.auto-rename-tag",
+    "naumovs.color-highlight",
+    "dsznajder.es7-react-js-snippets"
+  ]
+}

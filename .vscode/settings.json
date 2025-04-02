@@ -1,0 +1,110 @@
+{
+  "java.project.sourcePaths": ["src/screens"],
+  "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
+
+  // Default formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Format on save
+  "editor.formatOnSave": true,
+
+  // Tab size and indentation
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  "editor.trimAutoWhitespace": true,
+
+  // TypeScript/JavaScript specific settings
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // JSON settings
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // Ensure consistent newline at end of file
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Respect editor config
+  "editor.detectIndentation": false,
+
+  // Styling for JSX
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+
+  // Enable ESLint
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // Use Prettier as the default formatter with specific requirements
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.bracketSpacing": false,
+  "prettier.bracketSameLine": true,
+  "prettier.arrowParens": "avoid",
+
+  // File associations
+  "files.associations": {
+    "*.tsx": "typescriptreact",
+    "*.ts": "typescript",
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact"
+  },
+
+  // Import order (based on custom instructions)
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 80,
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.quoteMark": "single",
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "type": "importMember",
+      "regex": "^(React)$",
+      "orderLevel": 10,
+      "disableSort": true
+    },
+    {
+      "regex": "^(react|react-native)$",
+      "orderLevel": 20
+    },
+    {
+      "regex": "^@react-navigation",
+      "orderLevel": 30
+    },
+    {
+      "regex": "^[@]",
+      "orderLevel": 40
+    },
+    {
+      "regex": "^[^.@]",
+      "orderLevel": 50
+    },
+    {
+      "regex": "^[.]",
+      "orderLevel": 60
+    }
+  ]
+}

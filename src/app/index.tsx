@@ -1,6 +1,15 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {AppNavigator} from './navigation';
+import theme from './theme';
 
 export default function App() {
-  return <Text>Helllo</Text>;
+  return (
+    <SafeAreaProvider>
+      <PaperProvider theme={theme}>
+        <AppNavigator />
+      </PaperProvider>
+    </SafeAreaProvider>
+  );
 }

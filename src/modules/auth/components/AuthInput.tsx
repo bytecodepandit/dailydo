@@ -50,7 +50,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
               right={
                 secureTextEntry ? (
                   <TextInput.Icon
-                    name={isPasswordVisible ? 'eye-off' : 'eye'}
+                    icon={isPasswordVisible ? 'eye-off' : 'eye'}
                     onPress={togglePasswordVisibility}
                     forceTextInputFocus={false}
                   />

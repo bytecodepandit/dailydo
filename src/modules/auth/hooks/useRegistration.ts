@@ -37,8 +37,10 @@ const useRegistration = () => {
   const navigation = useNavigation();
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const {
+    value,
     control,
     handleSubmit,
+    setValue,
     formState: {errors, isValid},
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
@@ -81,7 +83,9 @@ const useRegistration = () => {
   };
 
   return {
+    value,
     control,
+    setValue,
     handleSubmit,
     errors,
     isCreatingAccount,

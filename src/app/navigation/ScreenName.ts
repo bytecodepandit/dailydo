@@ -4,4 +4,5 @@ export const ScreenName = {
   Login: 'Login',
   Registration: 'Registration',
   ForgotPassword: 'ForgotPassword',
+  Settings: 'Settings',
 };

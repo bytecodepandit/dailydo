@@ -9,6 +9,7 @@ import TodoDetailsScreen from '@modules/todos/screens/TodoDetails'; // Optional 
 import TodoListScreen from '@modules/todos/screens/TodoList';
 
 // Import the custom hook
+import SettingsScreen from '@/modules/todos/screens/Settings';
 import useAuth from '@hooks/useAuth';
 import {ActivityIndicator} from 'react-native-paper';
 import {ScreenName} from './ScreenName';
@@ -25,23 +26,26 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={
-          isLoggedIn ? ScreenName.TodoList : ScreenName.Registration
-        }>
+        initialRouteName={isLoggedIn ? ScreenName.TodoList : ScreenName.Login}>
         {isLoggedIn ? (
           // Authenticated routes
           <>
             <Stack.Screen
               name={ScreenName.TodoList}
               component={TodoListScreen}
-              options={{title: 'My Todos', headerShown: true}}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name={ScreenName.Settings}
+              component={SettingsScreen}
+              options={{headerShown: false}}
             />
             <Stack.Screen
               name={ScreenName.TodoDetails}
               component={TodoDetailsScreen}
               options={({route}) => ({
                 title: route.params?.isEditing ? 'Edit Todo' : 'Add New Todo',
-                headerShown: true,
+                headerShown: false,
               })}
             />
             {/* Add other authenticated screens here */}
@@ -63,6 +67,19 @@ const AppNavigator = () => {
               name={ScreenName.ForgotPassword}
               component={ForgetPasswordScreen}
               options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name={ScreenName.TodoList}
+              component={TodoListScreen}
+              options={{title: 'My Todos', headerShown: false}}
+            />
+            <Stack.Screen
+              name={ScreenName.TodoDetails}
+              component={TodoDetailsScreen}
+              options={({route}) => ({
+                title: route.params?.isEditing ? 'Edit Todo' : 'Add New Todo',
+                headerShown: false,
+              })}
             />
             {/* You might have a 'ForgotPassword' screen here */}
           </>

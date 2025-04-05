@@ -11,6 +11,7 @@ const RegistrationScreen: React.FC = () => {
   const theme = useTheme();
   const {
     control,
+    setValue,
     handleSubmit,
     errors,
     isCreatingAccount,
@@ -29,11 +30,7 @@ const RegistrationScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        contentContainerStyle={[
-          styles.container,
-          {backgroundColor: 'lightblue'},
-        ]}>
+      <ScrollView contentContainerStyle={[styles.container]}>
         <Appbar.Header style={styles.appBar}>
           <View style={styles.headerContent}>
             <Appbar.BackAction onPress={handleGoBack} />
@@ -94,9 +91,10 @@ const RegistrationScreen: React.FC = () => {
           <View style={styles.termsContainer}>
             <Checkbox
               status={control._formValues.agreeTerms ? 'checked' : 'unchecked'}
-              onPress={() =>
-                control.setValue('agreeTerms', !control._formValues.agreeTerms)
-              }
+              onPress={() => {
+                console.log('Checkbox pressed', control._formValues.agreeTerms);
+                setValue('agreeTerms', !control._formValues.agreeTerms);
+              }}
             />
             <Text style={styles.termsText}>
               I agree to the{' '}
@@ -120,29 +118,7 @@ const RegistrationScreen: React.FC = () => {
             Create Account
           </Button>
 
-          <Text style={styles.orText}>Or sign up with</Text>
-
-          <SocialButton
-            title="Continue with Google"
-            iconName="google"
-            backgroundColor="#DB4437"
-            textColor="white"
-            onPress={handleGoogleSignUp}
-          />
-          <SocialButton
-            title="Continue with Apple"
-            iconName="apple"
-            backgroundColor="black"
-            textColor="white"
-            onPress={handleAppleSignUp}
-          />
-          <SocialButton
-            title="Continue with Facebook"
-            iconName="facebook"
-            backgroundColor="#4267B2"
-            textColor="white"
-            onPress={handleFacebookSignUp}
-          />
+          <SocialButton />
         </View>
         <Text style={styles.loginText}>
           Already have an account ?{' '}
@@ -181,6 +157,8 @@ const styles = StyleSheet.create({
   appBarTitle: {
     textAlign: 'center',
     flex: 1, // Allow title to take up available space
+    fontWeight: 'bold',
+    marginTop: 15,
   },
   formWrapper: {
     backgroundColor: 'white',

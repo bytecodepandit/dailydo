@@ -1,10 +1,11 @@
 import {ScreenName} from '@/app/navigation/ScreenName';
-import {Button, Text} from '@components/atoms';
+import {Button, InputBox, Text} from '@components/atoms';
 import {yupResolver} from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -14,7 +15,6 @@ import {
 } from 'react-native';
 import {useTheme} from 'react-native-paper';
 import * as yup from 'yup';
-import AuthInput from '../components/AuthInput';
 import AuthSocialButton from '../components/AuthSocialButton';
 
 const schema = yup.object().shape({
@@ -98,7 +98,11 @@ const LoginScreen = ({navigation}) => {
           {/* Logo */}
           <View style={styles.logoContainer}>
             <View style={styles.logoPlaceholder}>
-              <Text style={styles.logoText}>F</Text>
+              <Image
+                source={require('@assets/images/icons/logo.png')}
+                resizeMode="contain"
+                style={styles.logo}
+              />
             </View>
             <Text style={styles.welcomeText}>Welcome Back</Text>
             <Text style={styles.subtitle}>Sign in to continue</Text>
@@ -106,20 +110,22 @@ const LoginScreen = ({navigation}) => {
 
           {/* Input Fields */}
           <View style={styles.inputContainer}>
-            <AuthInput
+            <InputBox
               control={control}
               name="email"
               label="Email Address"
+              placeholder="Enter your Email"
               rules={{
                 required: 'Email address is required',
                 pattern: /^\S+@\S+$/i,
               }}
               errors={errors}
             />
-            <AuthInput
+            <InputBox
               control={control}
               name="password"
               label="Password"
+              placeholder="Enter your password"
               secureTextEntry
               rules={{
                 required: 'Password is required',
@@ -184,6 +190,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    minHeight: '100%',
   },
   innerContainer: {
     flex: 1,
@@ -194,18 +201,16 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logoPlaceholder: {
-    backgroundColor: '#3f51b5', // Example blue color
-    width: 60,
-    height: 60,
-    borderRadius: 8,
+    width: 100,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
+    backgroundColor: 'yellow',
   },
-  logoText: {
-    color: '#fff',
-    fontSize: 24,
-    fontWeight: 'bold',
+  logo: {
+    width: '100%',
+    height: '100%',
   },
   welcomeText: {
     marginBottom: 8,

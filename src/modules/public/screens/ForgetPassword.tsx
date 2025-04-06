@@ -1,4 +1,4 @@
-import {Button, IconButton, Text} from '@components/atoms';
+import {Button, IconButton, InputBox, Text} from '@components/atoms';
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import {Avatar, useTheme} from 'react-native-paper';
 import * as yup from 'yup';
-import AuthInput from '../components/AuthInput';
 
 const schema = yup.object().shape({
   email: yup
@@ -42,7 +41,7 @@ const ForgotPasswordScreen = ({navigation}) => {
   };
 
   const handleGoBack = () => {
-    navigation.goBack();
+    navigation.navigate.goBack();
   };
 
   const handleContactSupport = () => {
@@ -71,9 +70,7 @@ const ForgotPasswordScreen = ({navigation}) => {
 
           {/* Title and Icon */}
           <View style={styles.headerContainer}>
-            <Text variant="h5" style={styles.title}>
-              Forgot Password
-            </Text>
+            <Text style={styles.title}>Forgot Password</Text>
             <View style={styles.iconContainer}>
               <Avatar.Icon
                 size={80}
@@ -90,10 +87,11 @@ const ForgotPasswordScreen = ({navigation}) => {
 
           {/* Email Input */}
           <View style={styles.inputContainer}>
-            <AuthInput
+            <InputBox
               control={control}
               name="email"
               label="Email Address"
+              placeholder="Enter your email"
               rules={{
                 required: 'Email address is required',
                 pattern: /^\S+@\S+$/i,
@@ -157,6 +155,9 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 16,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
   },
   iconContainer: {
     marginBottom: 16,

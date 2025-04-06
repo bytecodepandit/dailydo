@@ -1,9 +1,9 @@
 const colors = {
-  primary: '#6200EE',
+  primary: '#06f',
   accent: '#03DAC6',
   background: '#F3F3F3',
   surface: '#FFFFFF',
-  text: '#000000',
+  text: '#666666',
   disabled: 'rgba(0, 0, 0, 0.26)',
   placeholder: 'rgba(0, 0, 0, 0.54)',
   backdrop: 'rgba(0, 0, 0, 0.5)',

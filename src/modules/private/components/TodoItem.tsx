@@ -1,10 +1,14 @@
-import {Checkbox, IconButton, Text} from '@components/atoms';
-import React from 'react';
+import {Checkbox, Text} from '@components/atoms';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {useTheme} from 'react-native-paper';
+import {IconButton, Menu, useTheme} from 'react-native-paper';
 
 const TodoItem = ({todo, onToggleComplete, onDelete, onEdit}) => {
   const {colors} = useTheme();
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const openMenu = () => setMenuVisible(true);
+  const closeMenu = () => setMenuVisible(false);
 
   return (
     <View style={styles.container}>
@@ -35,10 +39,25 @@ const TodoItem = ({todo, onToggleComplete, onDelete, onEdit}) => {
           </View>
         )}
       </View>
-      <IconButton
-        icon="dots-vertical"
-        onPress={() => console.log('More options')}
-      />
+      <Menu
+        visible={menuVisible}
+        onDismiss={closeMenu}
+        anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
+        <Menu.Item
+          onPress={() => {
+            closeMenu();
+            onEdit(todo);
+          }}
+          title="Edit"
+        />
+        <Menu.Item
+          onPress={() => {
+            closeMenu();
+            onDelete(todo.id);
+          }}
+          title="Delete"
+        />
+      </Menu>
     </View>
   );
 };

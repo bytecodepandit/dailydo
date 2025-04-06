@@ -1,12 +1,25 @@
 import {ScreenName} from '@/app/navigation/ScreenName';
+import {RootStackParamList} from '@/app/navigation/types';
 import {ListRow} from '@components/atoms';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import {Appbar, Button, Divider, Text} from 'react-native-paper';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Appbar, Button, Divider} from 'react-native-paper';
 import ProfileHeader from '../components/ProfileHeader';
+interface SettingsScreenProps
+  extends NativeStackScreenProps<RootStackParamList> {
+  // You can add any specific props that might be passed to this screen
+  // via navigation or other means here.
+  // For example, if you were passing a user object:
+  // user?: {
+  //   id: string;
+  //   name: string;
+  //   email: string;
+  // };
+}
 
-const SettingsScreen = ({navigation}) => {
+const SettingsScreen: React.FC<SettingsScreenProps> = ({navigation}) => {
   const [pushNotificationsEnabled, setPushNotificationsEnabled] =
     useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -20,13 +33,13 @@ const SettingsScreen = ({navigation}) => {
   const handleEditProfile = () => {
     // Navigate to the edit profile screen
     console.log('Edit Profile Pressed');
-    // navigation.navigate('EditProfile');
+    navigation.navigate(ScreenName.UserProfile);
   };
 
   const handleChangePassword = () => {
     // Navigate to the change password screen
     console.log('Change Password Pressed');
-    // navigation.navigate('ChangePassword');
+    navigation.navigate(ScreenName.ChangePassword);
   };
 
   const handleLanguage = () => {
@@ -73,8 +86,9 @@ const SettingsScreen = ({navigation}) => {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('authToken');
-      navigation.navigate(ScreenName.Login);
-      console.log('Data stored successfully');
+      setTimeout(() => {
+        navigation.navigate(ScreenName.Login);
+      }, 1000); // Simulate a delay for logout
     } catch (error) {
       console.error('Error storing data:', error);
     }

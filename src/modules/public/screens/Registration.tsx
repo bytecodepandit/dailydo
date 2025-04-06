@@ -1,9 +1,9 @@
+import {InputBox} from '@components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {Appbar, Button, Checkbox, Text, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import AuthInput from '../components/AuthInput';
 import SocialButton from '../components/SocialButton';
 import useRegistration from '../hooks/useRegistration';
 
@@ -17,9 +17,6 @@ const RegistrationScreen: React.FC = () => {
     isCreatingAccount,
     handleCreateAccount,
     handleLoginNavigation,
-    handleGoogleSignUp,
-    handleAppleSignUp,
-    handleFacebookSignUp,
   } = useRegistration();
 
   const navigation = useNavigation();
@@ -43,14 +40,14 @@ const RegistrationScreen: React.FC = () => {
           </View>
         </Appbar.Header>
         <View style={styles.formWrapper}>
-          <AuthInput
+          <InputBox
             control={control}
             name="fullName"
             label="Full Name"
             rules={{required: 'Full name is required'}}
             errors={errors}
           />
-          <AuthInput
+          <InputBox
             control={control}
             name="email"
             label="Email Address"
@@ -60,7 +57,7 @@ const RegistrationScreen: React.FC = () => {
             }}
             errors={errors}
           />
-          <AuthInput
+          <InputBox
             control={control}
             name="password"
             label="Password"
@@ -74,7 +71,7 @@ const RegistrationScreen: React.FC = () => {
             }}
             errors={errors}
           />
-          <AuthInput
+          <InputBox
             control={control}
             name="confirmPassword"
             label="Confirm Password"

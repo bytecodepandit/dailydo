@@ -62,6 +62,9 @@ const TodoListScreen = ({navigation}) => {
 
   const handleEditTodo = todo => {
     console.log('Edit todo:', todo);
+    navigation.navigate(ScreenName.TodoDetails, {
+      todo, // Pass the todo data to the edit screen
+    });
     // Navigate to Add/Edit screen with todo data
   };
 

@@ -10,6 +10,8 @@ interface AuthInputProps {
   rules?: any;
   secureTextEntry?: boolean;
   errors: FieldErrors;
+  placeholder?: string;
+  containerStyles?: any;
 }
 
 const AuthInput: React.FC<AuthInputProps> = ({
@@ -19,6 +21,8 @@ const AuthInput: React.FC<AuthInputProps> = ({
   rules,
   secureTextEntry,
   errors,
+  placeholder,
+  containerStyles,
 }) => {
   const hasError = !!errors[name];
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -28,7 +32,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyles]}>
       <Text style={styles.label}>{label}</Text>
       <Controller
         control={control}
@@ -45,7 +49,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
               outlineStyle={styles.inputOutline}
               style={styles.input}
               placeholderTextColor="#A9A9A9"
-              placeholder={`Enter your ${label.toLowerCase()}`}
+              placeholder={placeholder}
               error={hasError}
               right={
                 secureTextEntry ? (

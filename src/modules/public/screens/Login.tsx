@@ -230,7 +230,8 @@ const styles = StyleSheet.create({
   forgotPassword: {
     alignSelf: 'flex-end',
     marginTop: 8,
-    color: '#3f51b5', // Example primary color
+    color: '#2196F3',
+    fontWeight: '500',
   },
   signInButton: {
     marginBottom: 24,

@@ -69,7 +69,7 @@ const AppNavigator = () => {
         <Stack.Screen
           name={ScreenName.Registration}
           component={RegistrationScreen}
-          options={{headerShown: false}}
+          options={{headerShown: false, title: 'Create Account'}}
         />
         <Stack.Screen
           name={ScreenName.ForgotPassword}

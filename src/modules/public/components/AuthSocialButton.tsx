@@ -20,7 +20,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 8,
     backgroundColor: '#fff',
-    elevation: 2, // Add a subtle shadow
+    borderColor: '#ccc',
+    borderWidth: 1,
+    flex: 1,
+    alignItems: 'center',
   },
 });
 

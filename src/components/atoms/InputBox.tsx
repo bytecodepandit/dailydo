@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {Control, Controller, FieldErrors} from 'react-hook-form';
-import {StyleSheet, Text, View} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {StyleProp, StyleSheet, Text, TextStyle, View} from 'react-native';
+import {TextInput, TextInputProps} from 'react-native-paper';
 
-interface AuthInputProps {
+interface AuthInputProps extends TextInputProps {
   control: Control<any>;
   name: string;
   label: string;
   rules?: any;
   secureTextEntry?: boolean;
   errors: FieldErrors;
-  placeholder?: string;
   containerStyles?: any;
+  inputStyle?: StyleProp<TextStyle>;
 }
 
 const AuthInput: React.FC<AuthInputProps> = ({
@@ -23,6 +23,8 @@ const AuthInput: React.FC<AuthInputProps> = ({
   errors,
   placeholder,
   containerStyles,
+  right,
+  inputStyle,
 }) => {
   const hasError = !!errors[name];
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -47,19 +49,20 @@ const AuthInput: React.FC<AuthInputProps> = ({
               secureTextEntry={secureTextEntry && !isPasswordVisible}
               mode="outlined"
               outlineStyle={styles.inputOutline}
-              style={styles.input}
+              style={[styles.input, inputStyle]}
               placeholderTextColor="#A9A9A9"
               placeholder={placeholder}
               error={hasError}
               right={
-                secureTextEntry ? (
+                right ||
+                (secureTextEntry ? (
                   <TextInput.Icon
                     icon={isPasswordVisible ? 'eye-off' : 'eye'}
                     onPress={togglePasswordVisibility}
                     forceTextInputFocus={false}
                     style={styles.iconButton}
                   />
-                ) : null
+                ) : null)
               }
             />
           </View>

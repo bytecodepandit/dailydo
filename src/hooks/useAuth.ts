@@ -11,7 +11,7 @@ const useAuthCheck = () => {
         const authToken = await AsyncStorage.getItem('authToken'); // Replace with your actual auth key
         setIsLoggedIn(!!authToken);
       } catch (error) {
-        console.error('Error checking login status:', error);
+        console.log('Error checking login status:', error);
         setIsLoggedIn(false); // Assume not logged in on error
       } finally {
         setLoading(false);

@@ -33,6 +33,7 @@ module.exports = {
           '@store': './src/store',
           '@utils': './src/utils',
           '@types': './src/types',
+          '@database': './src/database',
           // Add more aliases as needed
         },
       },

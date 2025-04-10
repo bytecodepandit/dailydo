@@ -65,12 +65,14 @@ const TodoItem = ({todo, onToggleComplete, onDelete, onEdit}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingVertical: 12,
     paddingHorizontal: 16,
     backgroundColor: 'white',
-    borderRadius: 4,
+    borderRadius: 10,
     marginBottom: 8,
+    borderWidth: 1,
+    borderColor: '#F3F4F6',
   },
   textContainer: {
     flex: 1,

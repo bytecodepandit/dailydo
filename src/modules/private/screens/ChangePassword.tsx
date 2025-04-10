@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   },
   updateButton: {
     marginTop: 32,
+    paddingVertical: 10,
   },
 });
 

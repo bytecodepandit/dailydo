@@ -9,8 +9,8 @@ import {
   ViewStyle,
 } from 'react-native';
 import {IconButtonProps} from 'react-native-paper';
-import {IconButton} from '../atoms';
-import Switch, {SwitchProps} from '../atoms/Switch';
+import {AnimatedSwitch, IconButton} from '../atoms';
+import {SwitchProps} from '../atoms/Switch';
 
 interface ListRowProps {
   /**
@@ -98,7 +98,7 @@ const ListRow: React.FC<ListRowProps> = ({
           <Text style={[styles.rightText, rightTextStyle]}>{rightText}</Text>
         )}
         {switchValue !== undefined && (
-          <Switch
+          <AnimatedSwitch
             value={switchValue}
             onValueChange={onSwitchChange}
             {...switchProps}

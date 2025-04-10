@@ -1,5 +1,6 @@
 import {ScreenName} from '@/app/navigation/ScreenName';
 import {Button, InputBox, Text} from '@components/atoms';
+import {useAuth} from '@contexts/AuthContext';
 import {yupResolver} from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
@@ -29,6 +30,7 @@ const schema = yup.object().shape({
 });
 
 const LoginScreen = ({navigation}) => {
+  const auth = useAuth();
   const {colors} = useTheme();
   const {
     control,
@@ -42,24 +44,14 @@ const LoginScreen = ({navigation}) => {
     },
   });
 
-  const loginUser = async () => {
+  const loginUser = async (data: any) => {
     try {
-      await AsyncStorage.setItem(
-        'authToken',
-        'adsjfbasd6343647364376sjbajsbcajhsdrwy36434',
-      );
-      console.log('Data stored successfully');
+      await auth.login(data.email, data.password);
+      await AsyncStorage.setItem('authToken', data.password);
+      navigation.navigate(ScreenName.TodoList);
     } catch (error) {
-      console.error('Error storing data:', error);
+      console.log('Error storing data:', error);
     }
-  };
-
-  const handleSignIn = async data => {
-    // Implement your sign-in logic here using data.email and data.password
-    console.log('Signing in with:', data.email, data.password);
-    // After successful sign-in, navigate to the main app screen
-    await loginUser();
-    navigation.navigate(ScreenName.TodoList);
   };
 
   const handleForgotPassword = () => {
@@ -115,6 +107,7 @@ const LoginScreen = ({navigation}) => {
               name="email"
               label="Email Address"
               placeholder="Enter your Email"
+              disabled={auth.isLoading}
               rules={{
                 required: 'Email address is required',
                 pattern: /^\S+@\S+$/i,
@@ -127,6 +120,7 @@ const LoginScreen = ({navigation}) => {
               label="Password"
               placeholder="Enter your password"
               secureTextEntry
+              disabled={auth.isLoading}
               rules={{
                 required: 'Password is required',
                 minLength: {
@@ -144,8 +138,9 @@ const LoginScreen = ({navigation}) => {
           {/* Sign In Button */}
           <Button
             mode="contained"
-            onPress={handleSubmit(handleSignIn)}
+            onPress={handleSubmit(loginUser)}
             disabled={!isValid}
+            loading={auth.isLoading}
             style={styles.signInButton}>
             Sign In
           </Button>

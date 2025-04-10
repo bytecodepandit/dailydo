@@ -1,9 +1,10 @@
-import {ScreenName} from '@/app/navigation/ScreenName';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {Alert} from 'react-native';
+import { ScreenName } from '@/app/navigation/ScreenName';
+import { useAuth } from '@contexts/AuthContext';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Alert } from 'react-native';
 import * as yup from 'yup';
 
 interface FormData {
@@ -35,12 +36,13 @@ const validationSchema = yup.object().shape({
 
 const useRegistration = () => {
   const navigation = useNavigation();
+  const {register, isLoading, error: registrationError} = useAuth();
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const {
-    value,
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: {errors, isValid},
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
@@ -55,9 +57,8 @@ const useRegistration = () => {
     try {
       // Simulate API call
       console.log('Registration Data:', data);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Replace with your actual API call
-      Alert.alert('Success', 'Account created successfully!');
-      navigation.navigate(ScreenName.Login);
+      await register(data.fullName, data.email, data.password);
+      navigation.navigate(ScreenName.TodoList);
     } catch (error: any) {
       console.error('Registration failed:', error.message);
       Alert.alert('Error', 'Failed to create account. Please try again.');
@@ -83,10 +84,12 @@ const useRegistration = () => {
   };
 
   return {
-    value,
     control,
     setValue,
     handleSubmit,
+    isLoading,
+    watch,
+    registrationError,
     errors,
     isCreatingAccount,
     handleCreateAccount,

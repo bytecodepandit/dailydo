@@ -1,7 +1,9 @@
+import {SegmentedButtons} from '@/components/molecules';
 import {Text} from '@components/atoms';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {FAB, SegmentedButtons, useTheme} from 'react-native-paper';
+import {FAB} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScreenName} from '../../../app/navigation/ScreenName';
 import Header from '../components/Header';
 import TodoList from '../components/TodoList';
@@ -44,9 +46,8 @@ const initialTodos = [
 ];
 
 const TodoListScreen = ({navigation}) => {
-  const {colors} = useTheme();
   const [todos, setTodos] = useState(initialTodos);
-  const [filter, setFilter] = useState('active');
+  const [filter, setFilter] = useState<string | number>('active');
 
   const handleToggleComplete = id => {
     setTodos(prevTodos =>
@@ -78,21 +79,19 @@ const TodoListScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header navigation={navigation} />
 
-      <View style={styles.filterButtons}>
-        <SegmentedButtons
-          value={filter}
-          onValueChange={setFilter}
-          buttons={[
-            {value: 'all', label: 'All'},
-            {value: 'active', label: 'Today'}, // Renamed to match the screenshot
-            {value: 'upcoming', label: 'Upcoming', disabled: true}, // Placeholder
-            {value: 'completed', label: 'Completed'},
-          ]}
-        />
-      </View>
+      <SegmentedButtons
+        initialValue={filter}
+        onValueChange={setFilter}
+        options={[
+          {value: 'all', label: 'All'},
+          {value: 'active', label: 'Today'}, // Renamed to match the screenshot
+          {value: 'upcoming', label: 'Upcoming', disabled: true}, // Placeholder
+          {value: 'completed', label: 'Completed'},
+        ]}
+      />
 
       <ScrollView style={styles.listContainer}>
         {filter === 'active' || filter === 'all' ? (
@@ -129,19 +128,17 @@ const TodoListScreen = ({navigation}) => {
       <FAB
         icon="plus"
         style={styles.fab}
+        color={'#fff'}
         onPress={() => navigation.navigate(ScreenName.TodoDetails)}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
-  },
-  filterButtons: {
-    padding: 16,
+    backgroundColor: '#FFF',
   },
   listContainer: {
     flex: 1,
@@ -152,12 +149,15 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#555',
+    color: '#6B7280',
   },
   fab: {
     position: 'absolute',
     right: 16,
     bottom: 16,
+    borderRadius: 50,
+    backgroundColor: '#007bff',
+    elevation: 0,
   },
 });
 

@@ -1,10 +1,12 @@
 import {InputBox} from '@/components/atoms';
+import {createTodoItem} from '@/services/api/todos';
 import {DateRangePicker} from '@components/molecules';
 import {yupResolver} from '@hookform/resolvers/yup';
 import React, {useEffect} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import {Appbar} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 const reminderSchema = yup.object().shape({
@@ -32,6 +34,7 @@ const schema = yup.object().shape({
 });
 
 const AddEditTodoScreen = ({navigation, route}) => {
+  // const {setStatusBar} = useStatusBar();
   const {todo: initialTodo} = route.params || {}; // Get todo data if editing
   const isEditing = !!initialTodo;
 
@@ -39,7 +42,6 @@ const AddEditTodoScreen = ({navigation, route}) => {
     control,
     handleSubmit,
     setValue,
-    watch,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(schema),
@@ -58,7 +60,10 @@ const AddEditTodoScreen = ({navigation, route}) => {
     },
   });
 
-  const reminderValue = watch('reminder');
+  useEffect(() => {
+    // setStatusBar({backgroundColor: 'blue'});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isEditing && initialTodo.reminder) {
@@ -80,11 +85,11 @@ const AddEditTodoScreen = ({navigation, route}) => {
     }
   }, [initialTodo, isEditing, setValue]);
 
-  const handleSaveTodo = data => {
+  const handleSaveTodo = async data => {
     const reminderData = data.reminder.enabled
       ? {
-          date: data.reminder.date?.toISOString().split('T')[0],
-          time: data.reminder.time?.toLocaleTimeString('en-US', {
+          reminderDate: data.reminder.date?.toISOString().split('T')[0],
+          reminderTime: data.reminder.time?.toLocaleTimeString('en-US', {
             hour12: false,
             hour: '2-digit',
             minute: '2-digit',
@@ -97,11 +102,13 @@ const AddEditTodoScreen = ({navigation, route}) => {
       title: data.title,
       description: data.description,
       completed: initialTodo?.completed || false, // Preserve completed status if editing
-      reminder: reminderData,
+      ...reminderData,
     };
 
+    await createTodoItem(newTodo);
+
     // In a real app, you would likely dispatch an action to update your todo list
-    console.log('Saving todo:', newTodo);
+
     navigation.goBack(); // Go back to the Todo List screen
   };
 
@@ -110,28 +117,44 @@ const AddEditTodoScreen = ({navigation, route}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="blue" translucent={false} />
       <Appbar.Header>
         <Appbar.Action icon="close" onPress={handleCancel} />
-        <Appbar.Content title={isEditing ? 'Edit Todo' : 'Add New Todo'} />
+        <Appbar.Content
+          title={isEditing ? 'Edit Todo' : 'Add New Todo'}
+          titleStyle={{textAlign: 'center'}}
+        />
         <Appbar.Action icon="check" onPress={handleSubmit(handleSaveTodo)} />
       </Appbar.Header>
 
       <View style={styles.content}>
-        <InputBox
-          control={control}
-          name="title"
-          label="Title"
-          placeholder="Enter todo title"
-          errors={errors}
-        />
-        <InputBox
-          control={control}
-          name="description"
-          label="Description"
-          placeholder="Enter todo description"
-          errors={errors}
-        />
+        <View style={{backgroundColor: '#fff', padding: 15, borderRadius: 10}}>
+          <InputBox
+            control={control}
+            name="title"
+            label="Title"
+            placeholder="Enter todo title"
+            errors={errors}
+          />
+        </View>
+        <View
+          style={{
+            backgroundColor: '#fff',
+            padding: 15,
+            borderRadius: 10,
+            marginVertical: 15,
+          }}>
+          <InputBox
+            control={control}
+            name="description"
+            label="Description"
+            multiline={true}
+            inputStyle={{height: 100}}
+            placeholder="Enter todo description"
+            errors={errors}
+          />
+        </View>
         <Controller
           name="reminder"
           control={control}
@@ -150,14 +173,14 @@ const AddEditTodoScreen = ({navigation, route}) => {
           <Text style={styles.errorText}>{errors.reminder.time?.message}</Text>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#F8F8F8',
   },
   content: {
     padding: 16,

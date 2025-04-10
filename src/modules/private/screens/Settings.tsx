@@ -90,7 +90,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({navigation}) => {
         navigation.navigate(ScreenName.Login);
       }, 1000); // Simulate a delay for logout
     } catch (error) {
-      console.error('Error storing data:', error);
+      console.log('Error storing data:', error);
     }
   };
 

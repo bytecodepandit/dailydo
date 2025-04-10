@@ -17,9 +17,13 @@ const RegistrationScreen: React.FC = () => {
     isCreatingAccount,
     handleCreateAccount,
     handleLoginNavigation,
+    isLoading,
+    watch,
   } = useRegistration();
 
   const navigation = useNavigation();
+
+  const agreeTerms = watch('agreeTerms');
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -44,13 +48,14 @@ const RegistrationScreen: React.FC = () => {
             control={control}
             name="fullName"
             label="Full Name"
-            rules={{required: 'Full name is required'}}
+            disabled={isLoading}
             errors={errors}
           />
           <InputBox
             control={control}
             name="email"
             label="Email Address"
+            disabled={isLoading}
             rules={{
               required: 'Email address is required',
               pattern: /^\S+@\S+$/i,
@@ -62,6 +67,7 @@ const RegistrationScreen: React.FC = () => {
             name="password"
             label="Password"
             secureTextEntry
+            disabled={isLoading}
             rules={{
               required: 'Password is required',
               minLength: {
@@ -75,6 +81,7 @@ const RegistrationScreen: React.FC = () => {
             control={control}
             name="confirmPassword"
             label="Confirm Password"
+            disabled={isLoading}
             secureTextEntry
             rules={{
               required: 'Confirm password is required',
@@ -89,7 +96,7 @@ const RegistrationScreen: React.FC = () => {
             <Checkbox
               status={control._formValues.agreeTerms ? 'checked' : 'unchecked'}
               onPress={() => {
-                console.log('Checkbox pressed', control._formValues.agreeTerms);
+                console.log('agreeTerms', control._formValues.agreeTerms);
                 setValue('agreeTerms', !control._formValues.agreeTerms);
               }}
             />
@@ -110,7 +117,7 @@ const RegistrationScreen: React.FC = () => {
             mode="contained"
             style={styles.createButton}
             onPress={handleSubmit(handleCreateAccount)}
-            loading={isCreatingAccount}
+            loading={isLoading}
             disabled={isCreatingAccount || !control._formState.isValid}>
             Create Account
           </Button>

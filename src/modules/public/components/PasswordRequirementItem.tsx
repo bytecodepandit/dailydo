@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 0,
   },
   text: {
-    marginLeft: 12,
+    marginLeft: 5,
     color: '#555',
   },
   metText: {

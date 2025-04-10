@@ -1,11 +1,15 @@
 import {RootStackParamList} from '@/app/navigation/types';
-import {InputBox, ProfileAvatarWithEdit} from '@components/atoms';
+import {
+  AnimatedSwitch,
+  InputBox,
+  ProfileAvatarWithEdit,
+} from '@components/atoms';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Appbar, IconButton, Switch, Text} from 'react-native-paper';
+import {Appbar, Text} from 'react-native-paper';
 import * as yup from 'yup';
 
 interface UserProfileScreenProps
@@ -34,7 +38,10 @@ const schema = yup.object().shape({
   location: yup.string().optional(), // We'll handle the text part of location
 });
 
-const UserProfileScreen: React.FC<UserProfileScreenProps> = ({navigation}) => {
+const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
+  navigation,
+  route,
+}) => {
   const {
     control,
     handleSubmit,
@@ -94,6 +101,8 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({navigation}) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.profileHeader}>
           <ProfileAvatarWithEdit
+            navigation={navigation}
+            route={route}
             size={120}
             source={{
               uri: 'https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg',
@@ -121,11 +130,6 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({navigation}) => {
               errors={errors}
               placeholder="Enter your email"
               containerStyles={{flex: 1}}
-            />
-            <IconButton
-              icon="check-circle-outline"
-              size={24}
-              iconColor="green"
             />
           </View>
         </View>
@@ -172,7 +176,6 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({navigation}) => {
 
         <View style={styles.inputContainer}>
           <View style={styles.row}>
-            <IconButton icon="map-marker-outline" size={24} color="gray" />
             <InputBox
               name="location"
               label="Location"
@@ -191,7 +194,7 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({navigation}) => {
               Only approved followers can see your content
             </Text>
           </View>
-          <Switch
+          <AnimatedSwitch
             value={isPrivate}
             onValueChange={() => setIsPrivate(!isPrivate)}
           />
@@ -259,7 +262,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   deleteAccountButton: {
-    marginTop: 32,
+    marginVertical: 32,
     alignItems: 'center',
   },
   deleteAccountText: {

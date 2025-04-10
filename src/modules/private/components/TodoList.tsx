@@ -1,4 +1,4 @@
-import {Divider, Text} from '@components/atoms';
+import {Text} from '@components/atoms';
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import TodoItem from './TodoItem';
@@ -28,7 +28,6 @@ const TodoList = ({todos, onToggleComplete, onDelete, onEdit, completed}) => {
           onEdit={onEdit}
         />
       )}
-      ItemSeparatorComponent={() => <Divider />}
       style={styles.list}
       contentContainerStyle={styles.contentContainer}
     />

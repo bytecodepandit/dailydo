@@ -1,7 +1,8 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, {useState} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
-import {Button, Switch, Text} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
+import {AnimatedSwitch} from '../atoms';
 
 const DateRangePicker = ({initialReminder, onReminderChange}) => {
   const [reminderEnabled, setReminderEnabled] = useState(!!initialReminder);
@@ -103,7 +104,10 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text variant="titleMedium">Reminder</Text>
-        <Switch value={reminderEnabled} onValueChange={handleToggleReminder} />
+        <AnimatedSwitch
+          value={reminderEnabled}
+          onValueChange={handleToggleReminder}
+        />
       </View>
 
       {reminderEnabled && (
@@ -111,6 +115,7 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
           <Button
             mode="outlined"
             onPress={showDatepicker}
+            labelStyle={{color: '#4B5563'}}
             style={styles.button}
             icon="calendar-month-outline">
             {selectedDate ? selectedDate.toLocaleDateString() : 'Select Date'}
@@ -120,6 +125,7 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
             mode="outlined"
             onPress={showTimepicker}
             style={styles.button}
+            labelStyle={{color: '#4B5563'}}
             icon="clock-outline">
             {selectedTime
               ? selectedTime.toLocaleTimeString('en-US', {
@@ -131,8 +137,9 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
 
           {(selectedDate || selectedTime) && (
             <Button
-              textColor="red"
+              textColor="#DC2626"
               onPress={clearReminder}
+              labelStyle={{fontSize: 18}}
               style={styles.clearButton}>
               Clear Reminder
             </Button>
@@ -189,24 +196,30 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16,
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 10,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: 0,
     marginBottom: 16,
   },
   options: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 0,
   },
   button: {
     marginBottom: 8,
     alignItems: 'flex-start', // Align text to the left within the button
+    borderColor: 'transparent',
+    paddingVertical: 4,
+    backgroundColor: '#F3F4F6',
+    color: '#4B5563',
   },
   clearButton: {
-    marginTop: 16,
+    marginTop: 10,
   },
 });
 

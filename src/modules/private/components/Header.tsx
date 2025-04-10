@@ -27,9 +27,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // Assuming a white background
     elevation: 0, // Remove shadow if needed for a flat look
     paddingHorizontal: 16, // Adjust as needed
+    marginTop: 0,
   },
   avatar: {
     marginRight: 16,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 18, // Adjust to match the visual

@@ -1,13 +1,32 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Avatar, IconButton, Text} from 'react-native-paper';
+import {AvatarImageSource} from 'react-native-paper/lib/typescript/components/Avatar/AvatarImage';
 
-const ProfileHeader = ({name, email, onEditPress, profileImage}) => {
+interface ProfileHeaderProps {
+  name: string;
+  email: string;
+  onEditPress: () => void;
+  profileImage: AvatarImageSource;
+}
+
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({
+  name,
+  email,
+  onEditPress,
+  profileImage,
+}) => {
   return (
     <View style={styles.container}>
       <Avatar.Image size={80} source={profileImage} />
       <View style={styles.info}>
-        <Text style={{fontWeight: 'bold', fontSize: 24}}>{name}</Text>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 24,
+          }}>
+          {name}
+        </Text>
         <Text style={styles.email}>{email}</Text>
       </View>
       <IconButton icon="pencil-outline" onPress={onEditPress} />

@@ -4,7 +4,6 @@ import {
   Easing,
   StyleProp,
   StyleSheet,
-  TextStyle,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -13,21 +12,14 @@ import {
 interface AnimatedSwitchProps {
   value: boolean;
   onValueChange: (newValue: boolean) => void;
-  activeText?: string | null;
-  inactiveText?: string | null;
   activeTrackColor?: string;
   inactiveTrackColor?: string;
-  thumbColor?: string;
   activeThumbColor?: string;
   inactiveThumbColor?: string;
   thumbSize?: number;
   trackWidth?: number;
   trackHeight?: number;
   animationDuration?: number;
-  textSize?: number;
-  textColor?: string;
-  activeTextStyle?: StyleProp<TextStyle>;
-  inactiveTextStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>; // For custom styling of the container
 }
 
@@ -42,10 +34,6 @@ const AnimatedSwitch: React.FC<AnimatedSwitchProps> = ({
   trackWidth = 55,
   trackHeight = 30,
   animationDuration = 300,
-  textSize = 12,
-  textColor = 'white',
-  activeTextStyle,
-  inactiveTextStyle,
   style,
 }) => {
   const [internalValue, setInternalValue] = useState<boolean>(value);
@@ -117,16 +105,6 @@ const AnimatedSwitch: React.FC<AnimatedSwitchProps> = ({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 2,
-  };
-
-  const textContainerStyle: ViewStyle = {
-    position: 'absolute',
-    width: trackWidth,
-    height: trackHeight,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 8,
   };
 
   return (

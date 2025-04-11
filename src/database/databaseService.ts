@@ -6,8 +6,6 @@ import {DATABASE_NAME, MAX_RETRIES, RETRY_DELAY} from './databaseConfig';
 // Enable promise-based operations
 SQLite.enablePromise(true);
 
-let _db: SQLite.SQLiteDatabase | null = null;
-
 class DatabaseService {
   private db: SQLite.SQLiteDatabase | null = null;
   private retryCount = 0;

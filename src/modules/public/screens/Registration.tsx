@@ -18,12 +18,9 @@ const RegistrationScreen: React.FC = () => {
     handleCreateAccount,
     handleLoginNavigation,
     isLoading,
-    watch,
   } = useRegistration();
 
   const navigation = useNavigation();
-
-  const agreeTerms = watch('agreeTerms');
 
   const handleGoBack = () => {
     navigation.goBack();

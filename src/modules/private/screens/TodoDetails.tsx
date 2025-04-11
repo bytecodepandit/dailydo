@@ -4,7 +4,7 @@ import {DateRangePicker} from '@components/molecules';
 import {yupResolver} from '@hookform/resolvers/yup';
 import React, {useEffect} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import * as yup from 'yup';

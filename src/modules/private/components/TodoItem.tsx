@@ -1,10 +1,28 @@
 import {Checkbox, Text} from '@components/atoms';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {IconButton, Menu, useTheme} from 'react-native-paper';
+import {IconButton, Menu} from 'react-native-paper';
 
-const TodoItem = ({todo, onToggleComplete, onDelete, onEdit}) => {
-  const {colors} = useTheme();
+export interface Todo {
+  id: number; // Unique identifier for the todo item
+  title: string; // Title of the todo item
+  description?: string; // Optional description of the todo item
+  completed: boolean; // Whether the todo item is completed
+  time?: string; // Optional time associated with the todo item
+}
+
+interface TodoItemProps {
+  todo: Todo; // The todo item to display
+  onToggleComplete: (id: number) => void; // Callback to toggle the completion status
+  onDelete: (id: number) => void; // Callback to delete the todo item
+  onEdit: (todo: Todo) => void; // Callback to edit the todo item
+}
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  onToggleComplete,
+  onDelete,
+  onEdit,
+}) => {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const openMenu = () => setMenuVisible(true);
@@ -35,7 +53,7 @@ const TodoItem = ({todo, onToggleComplete, onDelete, onEdit}) => {
         {todo.time && (
           <View style={styles.timeContainer}>
             {/* You might want to use a clock icon here */}
-            <Text variant="caption">{todo.time}</Text>
+            <Text variant="displaySmall">{todo.time}</Text>
           </View>
         )}
       </View>

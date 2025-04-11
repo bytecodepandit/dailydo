@@ -1,8 +1,12 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {TextInput, TextInputProps} from 'react-native-paper';
 
-const TitleInput = ({value, onChangeText, ...rest}) => {
+const TitleInput: React.FC<TextInputProps> = ({
+  value,
+  onChangeText,
+  ...rest
+}) => {
   return (
     <View style={styles.container}>
       <TextInput

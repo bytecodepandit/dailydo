@@ -1,8 +1,16 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {Avatar} from 'react-native-paper';
 
-const AuthSocialButton = ({icon, onPress}) => {
+interface AuthSocialButtonProps {
+  icon: string; // Icon name for the social button
+  onPress: (event: GestureResponderEvent) => void; // Callback for button press
+}
+const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({icon, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Avatar.Icon

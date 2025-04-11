@@ -1,16 +1,20 @@
 import {ScreenName} from '@/app/navigation/ScreenName';
+import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Appbar, Avatar, IconButton} from 'react-native-paper';
+import {AvatarImageSource} from 'react-native-paper/lib/typescript/components/Avatar/AvatarImage';
+interface HeaderProps {
+  navigation: NavigationProp<any>; // Navigation object to handle navigation actions
+  profileImage: AvatarImageSource;
+}
 
-const Header = ({navigation}) => {
+const Header: React.FC<HeaderProps> = ({navigation, profileImage}) => {
   return (
     <Appbar.Header style={styles.header}>
       <Avatar.Image
         size={30}
-        source={{
-          uri: 'https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg',
-        }} // Replace with your actual image path
+        source={profileImage} // Replace with your actual image path
         style={styles.avatar}
       />
       <Appbar.Content title="My Tasks" titleStyle={styles.title} />

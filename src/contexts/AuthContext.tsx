@@ -21,7 +21,7 @@ interface AuthContextType {
   isDbLoading: boolean;
   user: User | null;
   error: string | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<User | boolean>;
   register: (
     fullName: string,
     email: string,
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   // REMOVED: useEffect for loading auth state from AsyncStorage
 
   const login = useCallback(
-    async (email: string, password: string): Promise<boolean> => {
+    async (email: string, password: string): Promise<User | boolean> => {
       console.log('AuthProvider: login attempt');
       setIsLoading(true);
       setError(null);
@@ -73,7 +73,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         setUser(foundUser);
         setIsAuthenticated(true);
         console.log(`AuthProvider: login successful for ${email}`);
-        return true;
+        return foundUser;
       } catch (e: any) {
         console.error('AuthProvider: login failed', e);
         setError(e.message || 'Login failed. Please check your credentials.');

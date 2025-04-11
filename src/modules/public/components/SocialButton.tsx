@@ -2,14 +2,6 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import AuthSocialButton from './AuthSocialButton';
 
-interface SocialButtonProps {
-  title: string;
-  iconName?: string;
-  onPress: () => void;
-  backgroundColor?: string;
-  textColor?: string;
-}
-
 const SocialButton = () => {
   const handleContinueWithGoogle = () => {
     console.log('Continue with Google');
@@ -32,13 +24,8 @@ const SocialButton = () => {
       <Text style={styles.orText}>Or continue with</Text>
       <View style={styles.socialButtons}>
         <AuthSocialButton icon="google" onPress={handleContinueWithGoogle} />
+        <AuthSocialButton icon="apple" onPress={handleContinueWithApple} />
         <AuthSocialButton
-          color="#000"
-          icon="apple"
-          onPress={handleContinueWithApple}
-        />
-        <AuthSocialButton
-          color="#000"
           icon="facebook"
           onPress={handleContinueWithFacebook}
         />

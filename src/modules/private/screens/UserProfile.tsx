@@ -45,7 +45,6 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
   const {
     control,
     handleSubmit,
-    setValue,
     formState: {errors, isValid},
   } = useForm({
     resolver: yupResolver(schema),
@@ -62,9 +61,6 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
   });
 
   const [isPrivate, setIsPrivate] = useState(false);
-  const [profileImage, setProfileImage] = useState(
-    'https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg',
-  ); // Placeholder
 
   const handleGoBack = () => {
     navigation.goBack();

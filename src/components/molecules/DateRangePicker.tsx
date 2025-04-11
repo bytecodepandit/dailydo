@@ -4,7 +4,20 @@ import {Platform, StyleSheet, View} from 'react-native';
 import {Button, Text} from 'react-native-paper';
 import {AnimatedSwitch} from '../atoms';
 
-const DateRangePicker = ({initialReminder, onReminderChange}) => {
+interface Reminder {
+  enabled: boolean; // Whether the reminder is enabled
+  date: string | null; // Selected date in ISO format (e.g., "2025-04-11")
+  time: string | null; // Selected time in "HH:mm" format (e.g., "14:30")
+}
+
+interface DateRangePickerProps {
+  initialReminder: Reminder; // Initial reminder state
+  onReminderChange: (reminder: Reminder) => void; // Callback to handle reminder changes
+}
+const DateRangePicker: React.FC<DateRangePickerProps> = ({
+  initialReminder,
+  onReminderChange,
+}) => {
   const [reminderEnabled, setReminderEnabled] = useState(!!initialReminder);
   const [selectedDate, setSelectedDate] = useState(
     initialReminder?.date ? new Date(initialReminder.date) : null,
@@ -61,29 +74,30 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
     setShowTimePicker(false);
   };
 
-  const handleDateChange = (event, date) => {
+  const handleDateChange = (_event: any, date: Date | undefined) => {
     hideDatePicker();
     if (date) {
       setSelectedDate(date);
       onReminderChange({
         enabled: reminderEnabled,
         date: date.toISOString().split('T')[0],
-        time: selectedTime?.toLocaleTimeString('en-US', {
-          hour12: false,
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
+        time:
+          selectedTime?.toLocaleTimeString('en-US', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+          }) || null,
       });
     }
   };
 
-  const handleTimeChange = (event, time) => {
+  const handleTimeChange = (_event: any, time: Date | undefined) => {
     hideTimePicker();
     if (time) {
       setSelectedTime(time);
       onReminderChange({
         enabled: reminderEnabled,
-        date: selectedDate?.toISOString().split('T')[0],
+        date: selectedDate?.toISOString().split('T')[0] || null,
         time: time.toLocaleTimeString('en-US', {
           hour12: false,
           hour: '2-digit',
@@ -150,7 +164,6 @@ const DateRangePicker = ({initialReminder, onReminderChange}) => {
               testID="datePicker"
               value={selectedDate || new Date()}
               mode="date"
-              is24Hour={true}
               display="compact"
               onChange={handleDateChange}
             />

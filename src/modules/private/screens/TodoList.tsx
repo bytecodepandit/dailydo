@@ -1,11 +1,13 @@
 import {SegmentedButtons} from '@/components/molecules';
 import {Text} from '@components/atoms';
+import {NavigationProp} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {FAB} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScreenName} from '../../../app/navigation/ScreenName';
 import Header from '../components/Header';
+import {Todo} from '../components/TodoItem';
 import TodoList from '../components/TodoList';
 
 // Dummy todo data
@@ -45,11 +47,14 @@ const initialTodos = [
   },
 ];
 
-const TodoListScreen = ({navigation}) => {
+interface TodoListScreenProps {
+  navigation: NavigationProp<any>;
+}
+const TodoListScreen: React.FC<TodoListScreenProps> = ({navigation}) => {
   const [todos, setTodos] = useState(initialTodos);
   const [filter, setFilter] = useState<string | number>('active');
 
-  const handleToggleComplete = id => {
+  const handleToggleComplete = (id: number) => {
     setTodos(prevTodos =>
       prevTodos.map(todo =>
         todo.id === id ? {...todo, completed: !todo.completed} : todo,
@@ -57,11 +62,11 @@ const TodoListScreen = ({navigation}) => {
     );
   };
 
-  const handleDeleteTodo = id => {
+  const handleDeleteTodo = (id: number) => {
     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
   };
 
-  const handleEditTodo = todo => {
+  const handleEditTodo = (todo: Todo) => {
     console.log('Edit todo:', todo);
     navigation.navigate(ScreenName.TodoDetails, {
       todo, // Pass the todo data to the edit screen
@@ -80,7 +85,12 @@ const TodoListScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header navigation={navigation} />
+      <Header
+        navigation={navigation}
+        profileImage={{
+          uri: 'https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg',
+        }}
+      />
 
       <SegmentedButtons
         initialValue={filter}

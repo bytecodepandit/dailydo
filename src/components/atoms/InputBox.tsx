@@ -9,7 +9,7 @@ interface AuthInputProps extends TextInputProps {
   label: string;
   rules?: any;
   secureTextEntry?: boolean;
-  errors: FieldErrors;
+  errors: FieldErrors<{[key: string]: {message?: string}}>;
   containerStyles?: any;
   inputStyle?: StyleProp<TextStyle>;
 }

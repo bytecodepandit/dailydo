@@ -1,9 +1,22 @@
 import {Text} from '@components/atoms';
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
-import TodoItem from './TodoItem';
+import TodoItem, {Todo} from './TodoItem';
 
-const TodoList = ({todos, onToggleComplete, onDelete, onEdit, completed}) => {
+interface TodoListProps {
+  todos: Todo[]; // Array of todo items
+  onToggleComplete: (id: number) => void; // Callback to toggle the completion status
+  onDelete: (id: number) => void; // Callback to delete a todo item
+  onEdit: (todo: Todo) => void; // Callback to edit a todo item
+  completed: boolean; // Whether to show completed or active tasks
+}
+const TodoList: React.FC<TodoListProps> = ({
+  todos,
+  onToggleComplete,
+  onDelete,
+  onEdit,
+  completed,
+}) => {
   const filteredTodos = completed
     ? todos.filter(todo => todo.completed)
     : todos.filter(todo => !todo.completed);

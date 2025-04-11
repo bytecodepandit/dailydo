@@ -46,11 +46,11 @@ const LoginScreen = ({navigation}) => {
 
   const loginUser = async (data: any) => {
     try {
-      await auth.login(data.email, data.password);
-      if (data.password_hash) {
-        await AsyncStorage.setItem('authToken', data.password_hash);
+      const response = await auth.login(data.email, data.password);
+      if (typeof response === 'object') {
+        await AsyncStorage.setItem('authToken', response.password_hash);
+        navigation.navigate(ScreenName.TodoList);
       }
-      navigation.navigate(ScreenName.TodoList);
     } catch (error) {
       console.log('Error storing data:', error);
     }

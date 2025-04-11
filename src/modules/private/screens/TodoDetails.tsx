@@ -105,11 +105,14 @@ const AddEditTodoScreen = ({navigation, route}) => {
       ...reminderData,
     };
 
-    await createTodoItem(newTodo);
+    try {
+      await createTodoItem(newTodo);
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
 
-    // In a real app, you would likely dispatch an action to update your todo list
-
-    navigation.goBack(); // Go back to the Todo List screen
+    // In a real app, you would likely dispatch an action to update your todo list // Go back to the Todo List screen
   };
 
   const handleCancel = () => {

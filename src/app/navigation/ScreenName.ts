@@ -7,4 +7,5 @@ export const ScreenName = {
   Settings: 'Settings',
   ChangePassword: 'ChangePassword',
   UserProfile: 'UserProfile',
+  PaypalPayment: 'PaypalPayment',
 };

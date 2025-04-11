@@ -9,11 +9,13 @@ import {
   Image,
   Keyboard,
   KeyboardAvoidingView,
+  NativeModules,
   Platform,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {useTheme} from 'react-native-paper';
 import * as yup from 'yup';
 import AuthSocialButton from '../components/AuthSocialButton';
@@ -55,6 +57,11 @@ const LoginScreen = ({navigation}) => {
       console.log('Error storing data:', error);
     }
   };
+  const showInAppNotification = (title, message) => {
+    NativeModules.InAppNotification.showNotification(title, message);
+  };
+
+  // Example usage:
 
   const handleForgotPassword = () => {
     // Navigate to the forgot password screen
@@ -71,6 +78,7 @@ const LoginScreen = ({navigation}) => {
   const handleContinueWithGoogle = () => {
     console.log('Continue with Google');
     // Implement Google sign-in logic
+    showInAppNotification('Notification Title', 'Notification Message');
   };
 
   const handleContinueWithApple = () => {
@@ -78,9 +86,25 @@ const LoginScreen = ({navigation}) => {
     // Implement Apple sign-in logic
   };
 
-  const handleContinueWithFacebook = () => {
-    console.log('Continue with Facebook');
-    // Implement Facebook sign-in logic
+  const handleContinueWithFacebook = async () => {
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+
+      if (result.isCancelled) {
+        console.log('Login cancelled');
+      } else {
+        const data = await AccessToken.getCurrentAccessToken();
+        if (data) {
+          console.log('Access Token:', data.accessToken.toString());
+          // You can now use the access token to fetch user data from the Facebook Graph API.
+        }
+      }
+    } catch (error) {
+      console.log('Login failed with error:', error);
+    }
   };
 
   return (

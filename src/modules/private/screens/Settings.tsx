@@ -83,6 +83,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({navigation}) => {
     // Linking.openURL('https://example.com/privacy');
   };
 
+  const handlePaypalPayment = () => {
+    navigation.navigate(ScreenName.PaypalPayment);
+  };
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('authToken');
@@ -130,6 +134,14 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({navigation}) => {
             rightText="English (US)"
             rightIcon="chevron-right"
             onPress={handleLanguage}
+          />
+          <Divider />
+          <ListRow
+            title="Paypal Payment"
+            leftIcon="earth"
+            rightText="English (US)"
+            rightIcon="chevron-right"
+            onPress={handlePaypalPayment}
           />
           <Divider />
         </View>

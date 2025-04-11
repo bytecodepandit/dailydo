@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DailyDo</string>
+    <string name="facebook_app_id">689653246772163</string>
+    <string name="fb_login_protocol_scheme">689653246772163</string>
 </resources>

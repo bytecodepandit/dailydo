@@ -10,6 +10,7 @@ import RegistrationScreen from '@/modules/public/screens/Registration';
 
 // Import the custom hook
 import ChangePasswordScreen from '@/modules/private/screens/ChangePassword';
+import PayPalPaymentScreen from '@/modules/private/screens/PayPalPayment';
 import SettingsScreen from '@/modules/private/screens/Settings';
 import UserProfileScreen from '@/modules/private/screens/UserProfile';
 import useAuth from '@hooks/useAuth';
@@ -28,7 +29,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={isLoggedIn ? ScreenName.TodoList : ScreenName.Login}>
+        initialRouteName={!isLoggedIn ? ScreenName.TodoList : ScreenName.Login}>
         <Stack.Screen
           name={ScreenName.TodoList}
           component={TodoListScreen}
@@ -46,6 +47,11 @@ const AppNavigator = () => {
             title: route.params?.isEditing ? 'Edit Todo' : 'Add New Todo',
             headerShown: false,
           })}
+        />
+        <Stack.Screen
+          name={ScreenName.PaypalPayment}
+          component={PayPalPaymentScreen}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name={ScreenName.ChangePassword}

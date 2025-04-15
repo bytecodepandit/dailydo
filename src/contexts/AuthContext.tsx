@@ -1,5 +1,5 @@
-import {userDAO} from '@services/dao/UserDAO';
-import {User} from '@types/database';
+import { userDAO } from '@services/dao/UserDAO';
+import { User } from '@types/database';
 import React, {
   createContext,
   ReactNode,

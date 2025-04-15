@@ -1,10 +1,10 @@
-import { ScreenName } from '@/app/navigation/ScreenName';
-import { useAuth } from '@contexts/AuthContext';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Alert } from 'react-native';
+import {ScreenName} from '@/app/navigation/ScreenName';
+import {useAuth} from '@contexts/AuthContext';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useNavigation} from '@react-navigation/native';
+import {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {Alert} from 'react-native';
 import * as yup from 'yup';
 
 interface FormData {
@@ -29,9 +29,7 @@ const validationSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), undefined], 'Passwords must match')
     .required('Confirm password is required'),
-  agreeTerms: yup
-    .boolean()
-    .oneOf([true], 'You must agree to the terms and privacy policy'),
+  agreeTerms: yup.boolean(),
 });
 
 const useRegistration = () => {

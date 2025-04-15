@@ -93,7 +93,6 @@ const RegistrationScreen: React.FC = () => {
             <Checkbox
               status={control._formValues.agreeTerms ? 'checked' : 'unchecked'}
               onPress={() => {
-                console.log('agreeTerms', control._formValues.agreeTerms);
                 setValue('agreeTerms', !control._formValues.agreeTerms);
               }}
             />

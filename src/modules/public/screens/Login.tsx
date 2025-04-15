@@ -3,7 +3,7 @@ import {Button, InputBox, Text} from '@components/atoms';
 import {useAuth} from '@contexts/AuthContext';
 import {yupResolver} from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useForm} from 'react-hook-form';
 import {
   Image,
@@ -14,11 +14,13 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  findNodeHandle,
 } from 'react-native';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {useTheme} from 'react-native-paper';
 import * as yup from 'yup';
 import AuthSocialButton from '../components/AuthSocialButton';
+const {TextColorModule} = NativeModules;
 
 const schema = yup.object().shape({
   email: yup
@@ -45,6 +47,14 @@ const LoginScreen = ({navigation}) => {
       password: '',
     },
   });
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    if (textRef.current) {
+      const viewTag = findNodeHandle(textRef.current);
+      TextColorModule.setTextColor(viewTag, 'red'); // Red color
+    }
+  }, [textRef]);
 
   const loginUser = async (data: any) => {
     try {
